@@ -1,9 +1,9 @@
 <h1>Listing projects</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Name</th>
-    <th>Owner</th>
+    <th>Creator</th>
     <th>User</th>
     <th>Public</th>
     <th>Approved</th>
@@ -15,8 +15,8 @@
 <% @projects.each do |project| %>
   <tr>
     <td><%= project.name %></td>
-    <td><%= project.owner %></td>
-    <td><%= project.user_id %></td>
+    <td><%= project.creator %></td>
+    <td><%= owner_user(project.user_id).username %></td>
     <td><%= project.public %></td>
     <td><%= project.approved %></td>
     <td><%= link_to 'Show', project %></td>
@@ -27,5 +27,6 @@
 </table>
 
 <br />
-
-<%= link_to 'New Project', new_project_path %>
+<button type="button" class="btn btn-primary">
+	<%= link_to 'New Project', new_project_path %>
+</button>

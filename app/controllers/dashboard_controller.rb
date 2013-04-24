@@ -1,37 +1,65 @@
 class DashboardController < ApplicationController
  
- def index
-   @userlist = User.all
-   counter = 0
-    LocationData.find_each do |location|
-    
-    @polygons = Array.new(LocationData.count,Array.new)
+	def index
+		## For all users
+		@users = User.all
+    ##For non approved user list
+ 
+ 
 
-    location.latitude.each_index do |index|
-    @polygons[counter] << { :lat => location.latitude[index], :lng =>location.longitude[index]}
-    end
-    counter = counter + 1
-        end
-    
-    
-    @polygons = @polygons.to_json
-    respond_to do |format|
-    format.html
-    format.json { render json: @polygons }   
+		@userlist = User.where(["project_id = ?",current_user.project_id] && ["approved = false"]).all
 
-  end
-end
-  
-  def dataentry
+  @location_datum = LocationDatum.new
   @author = Author.new
   @authorlist = Author.all
   @citation = Citation.new
-  @citationlist = Citation.all
   @node = Node.new
   @non_iti = NonIti.new
   @nodelist = Node.all
+  @author_array = Array.new(){Array.new}
 
-  end
+
+		#Projects
+		@project = Project.new
+   ##For google maps
+    #Code for generating polygons
+	counter = 0
+	#Users and project lead can only see regions belonging to their project
+	if current_user.role == 'user' || 'lead'	
+		@polygons = Array.new(LocationDatum.where(["project_id = ?",current_user.project_id]).count) { Array.new }
+		LocationDatum.where(["project_id = ?",current_user.project_id]).find_each do |location|
+		location.latitude.each_index do |index|
+		@polygons[counter] << { :lat => location.latitude[index], :lng =>location.longitude[index]}
+
+		end
+		counter += 1
+		end  
+	else
+		@polygons = Array.new(LocationDatum.count) { Array.new }
+		LocationDatum.find_each do |location|
+			location.latitude.each_index do |index|
+			@polygons[counter] << { :lat => location.latitude[index], :lng =>location.longitude[index]}
+
+			end
+		counter += 1
+		end  
+	end
+
+		@polygons2 = Array.new(@polygons)	
+		@polygons = @polygons.to_json
+		@polygons2 = @polygons2.to_json
+		respond_to do |format|
+		format.html
+		format.json { render json: @polygons }   
+		format.json { render json: @polygons2 }   
+		end	
+
+end
+
+def search
+q = params[:working]
+@nodesearch = Node.find(:all, :conditions => ['working_name LIKE ?', "#{q}%"])
+end
 
   
 end

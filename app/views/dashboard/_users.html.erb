@@ -3,7 +3,7 @@
 		<a href="#home" data-toggle="tab">Home</a>
 	</li>
 	<li>
-		<a href="#all" data-toggle="tab">All Users</a>
+		<a href="#listusers" data-toggle="tab">All Users</a>
 	</li>
 	<li>
 		<a href="#waiting" data-toggle="tab">Awaiting Approval</a>
@@ -13,14 +13,15 @@
 	<div class="tab-pane active" id="home">
 		<p> Here you can list all users and see users waiting approval </p>
 	</div>
-	<div class="tab-pane" id="all">
-		<div class="well">
-			<fieldset>
-				<%= render :partial => 'listusers', :user => @userlist %>
-			</fieldset>
-		</div>
+	
+	<div class="tab-pane" id="listusers">
+		<%= render 'listusers', :locals => {:users => @users}%>
 	</div>
+	
 	<div class="tab-pane" id="waiting">
-		<%= render :partial => 'listusers', :user => @userlist %>
+
+		<% @users= User.where(["project_id = ?",current_user.project_id] && ["approved = false"]).all %>
+		<%= render 'listusers', :locals => {:users => @users} %>
+
 	</div>
 </div>

@@ -101,7 +101,7 @@ sub {
 img {
   width: auto\9;
   height: auto;
-  max-width: 100%;
+  max-width: none;
   vertical-align: middle;
   border: 0;
   -ms-interpolation-mode: bicubic;
@@ -4092,10 +4092,14 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav-pills > .active > a,
-.nav-pills > .active > a:hover,
+.nav-pills > .active > a:hover {
+	color: #ffffff;
+  background-color: #000000;
+}
+
 .nav-pills > .active > a:focus {
   color: #ffffff;
-  background-color: #0088cc;
+  background-color: #000000;
 }
 
 .nav-stacked > li {
@@ -4594,7 +4598,7 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .nav.pull-right {
   float: right;
-  margin-right: 0;
+  margin-right: 60px;
 }
 
 .navbar .nav > li {

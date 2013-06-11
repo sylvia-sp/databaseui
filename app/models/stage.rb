@@ -1,5 +1,6 @@
 class Stage < ActiveRecord::Base
-  attr_accessible :node_id, :user_id , :project_id, :mod , :approved, :name
+  enum :name, [:general, :adult, :juvenile,:larval,:egg,:sporophyte,:gametophyte,:dead]
+  attr_accessible :node_id, :user_id , :project_id, :mod , :approved, :name,:id
   belongs_to :node
   belongs_to :user
   belongs_to :project

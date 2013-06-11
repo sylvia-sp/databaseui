@@ -7,7 +7,9 @@ gem 'rails', '3.2.12'
 
 gem 'mysql2'
 
-gem 'therubyracer'
+group :production do
+  gem 'pg'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -33,10 +35,10 @@ gem 'jquery-rails'
 gem 'jbuilder'
 
 # Using capistrano with rvm
-gem 'rvm-capistrano'
+#gem 'rvm-capistrano'
 
 # Deploy with Capistrano
-gem 'capistrano'
+#gem 'capistrano'
 
 # For csv
 gem 'fastercsv'
@@ -62,3 +64,9 @@ gem 'lazy_high_charts'
 
 # For autocompletion in forms
 gem 'rails3-jquery-autocomplete'
+
+# For enums
+gem 'enum_simulator'
+
+#For D3
+gem 'd3-rails'

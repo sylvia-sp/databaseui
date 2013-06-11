@@ -5,4 +5,9 @@ class AuthorCite < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   belongs_to :citation
+  
+  validates :author_id, :presence => true
+  validates :citation_id, :presence => true
+  validates :user_id, :presence => true
+  validates :project_id, :presence => true
 end
